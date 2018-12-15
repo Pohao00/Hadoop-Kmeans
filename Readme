@@ -1,0 +1,31 @@
+1.確認Hadoop已安裝
+(1)  $commandline$ jps
+	
+	4369 ResourceManager
+	4691 NodeManager
+	4131 SecondaryNameNode
+	4854 Jps
+	3879 DataNode
+	3656 NameNode
+
+(2)  "http://localhost:50070/"
+
+2.Mahout安裝
+     $commandline$  ./bin/hadoop fs -mkdir /user
+     $commandline$  ./bin/hadoop fs -mkdir /user/ai-lab
+     $commandline$  ./bin/hadoop fs -copyFromLocal testdata /user/ai-lab
+
+     $commandline$  ./bin/hadoop jar mahout-examples-0.7-job.jar org.apache.mahout.clustering.syntheticcontrol.canopy.Job
+	
+     $commandline$  cd mahout-distribution-0.7/bin/
+     $commandline$  ./mahout clusterdump -i output/clusters-0-final -p output/clusteredPoints -o /home/ai-lab/test
+
+3.MapReduce版本 k-means
+
+     $commandline$  cd /usr/local/hadoop
+
+     $commandline$  hadoop com.sun.tools.javac.Main KMeans.java
+     $commandline$  jar cf wc.jar KMeans*.class
+     $commandline$  ll
+     $commandline$  ./bin/hadoop jar wc.jar KMeans /input/test/aaa /output
+     $commandline$  ./bin/hadoop fs -cat /output/part-r-00000
